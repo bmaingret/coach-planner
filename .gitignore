@@ -1,7 +1,3 @@
-# POETRY (NB. doesn't follow the recommended pattern
-poetry.lock
-
-
 # VSCODE
 .vscode/*
 !.vscode/settings.json
