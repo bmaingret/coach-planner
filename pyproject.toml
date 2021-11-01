@@ -7,6 +7,7 @@ authors = ["Baptiste Maingret <baptiste.maingret@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.10"
 Flask = "^2.0.2"
+gunicorn = "^20.1.0"
 
 [tool.poetry.dev-dependencies]
 
