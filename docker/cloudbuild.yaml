@@ -1,0 +1,23 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args: ['-c', 'docker pull gcr.io/$PROJECT_ID/$REPO_NAME:latest || exit 0']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build',
+            '-t',
+            'gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA',
+            '-t',
+            'gcr.io/$PROJECT_ID/$REPO_NAME:latest',
+            '--file',
+            'docker/Dockerfile',
+            '--cache-from',
+            'gcr.io/$PROJECT_ID/$REPO_NAME:latest',
+            '.']
+
+  # Docker push to Google Artifact Registry
+  # Using offical Docker Team image instead to support --all-tags
+  - name: 'docker'
+    args: ['push',
+            '--all-tags',
+            'gcr.io/$PROJECT_ID/$REPO_NAME']
