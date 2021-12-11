@@ -54,6 +54,7 @@ CMD ["flask", "run"]
 # Stage: build
 #
 FROM staging as build
+ARG APP_PATH
 
 WORKDIR $APP_PATH
 RUN poetry build --format wheel
