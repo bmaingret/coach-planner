@@ -74,7 +74,7 @@ ENV \
 ENV \
     PIP_NO_CACHE_DIR=off \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
-    PIP_DEFAULT_TIMEOUT=100s
+    PIP_DEFAULT_TIMEOUT=100
 
 # Get build artifact wheel and install it
 WORKDIR $APP_PATH
