@@ -21,3 +21,4 @@ steps:
     args: ['push',
             '--all-tags',
             'gcr.io/$PROJECT_ID/$REPO_NAME']
+            
