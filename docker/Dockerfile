@@ -14,7 +14,7 @@ ARG POETRY_VERSION
 ENV \
     PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    PYTHONFAULTHANDLER=1 
+    PYTHONFAULTHANDLER=1
 ENV \
     POETRY_VERSION=$POETRY_VERSION \
     POETRY_HOME="/opt/poetry" \
@@ -54,6 +54,7 @@ CMD ["flask", "run"]
 # Stage: build
 #
 FROM staging as build
+ARG APP_PATH
 
 WORKDIR $APP_PATH
 RUN poetry build --format wheel
@@ -73,15 +74,15 @@ ENV \
 ENV \
     PIP_NO_CACHE_DIR=off \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
-    PIP_DEFAULT_TIMEOUT=100 
+    PIP_DEFAULT_TIMEOUT=100s
 
 # Get build artifact wheel and install it
 WORKDIR $APP_PATH
 COPY --from=build $APP_PATH/dist/*.whl ./
-RUN pip install  ./$APP_NAME*.whl
+RUN pip install ./$APP_NAME*.whl
 
 # gunicorn port. Naming is consistent with GCP Cloud Run
-ENV PORT=8888 
+ENV PORT=8888
 # export APP_NAME as environment variable for the CMD
 ENV APP_NAME=$APP_NAME
 
