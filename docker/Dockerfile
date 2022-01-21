@@ -58,6 +58,7 @@ ARG APP_PATH
 
 WORKDIR $APP_PATH
 RUN poetry build --format wheel
+RUN poetry export --format requirements.txt --output constraints.txt --without-hashes
 
 #
 # Stage: production
@@ -76,10 +77,11 @@ ENV \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
     PIP_DEFAULT_TIMEOUT=100
 
-# Get build artifact wheel and install it
+# Get build artifact wheel and install it respecting dependency versions
 WORKDIR $APP_PATH
 COPY --from=build $APP_PATH/dist/*.whl ./
-RUN pip install ./$APP_NAME*.whl
+COPY --from=build $APP_PATH/constraints.txt ./
+RUN pip install ./$APP_NAME*.whl --constraint constraints.txt
 
 # gunicorn port. Naming is consistent with GCP Cloud Run
 ENV PORT=8888
