@@ -30,4 +30,7 @@ $ docker run -p 8888:8888 --entrypoint /bin/bash -it poetry
 
 ## Contributors
 
-Thanks https://github.com/zzztimbo 
+Thanks:
+
+* https://github.com/zzztimbo 
+* https://github.com/MartinWallgren 
